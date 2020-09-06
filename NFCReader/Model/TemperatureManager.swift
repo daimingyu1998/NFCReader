@@ -11,14 +11,24 @@ import Charts
 class TemperatureManager
 {
     var entries = [BarChartDataEntry]()
-    func creatData(from sensorRecord: SensorRecord) ->ChartData?
+    enum DataType {
+        case Celsius
+        case Fahrenheit
+    }
+    func creatData(from sensorRecord: SensorRecord, in type: DataType) ->ChartData?
     {
-        print("creating data")
         print(sensorRecord.data.count)
         entries.removeAll()
         for sensorData in sensorRecord.data {
             let x = sensorData.time.timeIntervalSince(sensorRecord.data.first!.time)
-            let y = Double(sensorData.tempInC)
+            var y = 0.0
+            switch type {
+            case .Celsius:
+                y = Double(sensorData.tempInC)
+            case .Fahrenheit:
+                y = Double(sensorData.tempInF)
+            }
+            
             entries.append(BarChartDataEntry(x: x,y: y))
         }
         print(entries)

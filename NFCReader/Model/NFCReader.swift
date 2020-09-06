@@ -96,7 +96,6 @@ class NFCReader: NSObject, NFCTagReaderSessionDelegate {
                     let therStringSlice = string[therIndexmid..<therIndexend] + string[therIndexstart..<therIndexmid]
                     let refValue = Int(refStringSlice, radix: 16) ?? 0
                     let thermValue = Int(therStringSlice, radix: 16) ?? 0
-                    let sensorData = SensorData(refValue: refValue, thermValue: thermValue)
                     time += 1
                     if self.singleDataReady == true{
                         self.sensorRecord?.add(SensorData(refValue: refValue, thermValue: thermValue))

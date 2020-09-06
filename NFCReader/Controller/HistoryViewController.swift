@@ -7,19 +7,27 @@
 //
 
 import UIKit
-
+import SwipeCellKit
+import RealmSwift
 class HistoryViewController: UITableViewController {
+    
     var NFCReader1 = NFCReader()
+    var sensorRecords: Results<SensorRecord>!
     override func viewDidLoad() {
-      
+        
         super.viewDidLoad()
     }
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 2
+        let realm = try! Realm()
+        sensorRecords = realm.objects(SensorRecord.self)
+        return sensorRecords.count
+
     }
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell")!
-        cell.textLabel?.text = "1"
+        let realm = try! Realm()
+        sensorRecords = realm.objects(SensorRecord.self)
+        cell.textLabel?.text = sensorRecords[indexPath.row].getStartTime()?.description
         return cell
          
     }

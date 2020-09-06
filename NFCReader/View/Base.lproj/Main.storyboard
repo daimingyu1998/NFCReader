@@ -31,6 +31,9 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="History" id="x0s-NN-p4T"/>
+                    <connections>
+                        <segue destination="0Qq-JZ-vif" kind="show" id="DOQ-LQ-DEF"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kHT-4j-1aM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -44,7 +47,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XRa-oY-gSg">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XRa-oY-gSg" customClass="LineChartView" customModule="Charts">
                                 <rect key="frame" x="35" y="260" width="344" height="350"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <constraints>
@@ -62,9 +65,25 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="IEj-b0-fOh">
+                                <rect key="frame" x="147" y="200" width="120" height="31"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="120" id="FVc-jF-sOx"/>
+                                    <constraint firstAttribute="height" constant="30" id="SUR-21-8KZ"/>
+                                </constraints>
+                                <segments>
+                                    <segment title="°C"/>
+                                    <segment title="°F"/>
+                                </segments>
+                                <connections>
+                                    <action selector="didUpdateSegment:" destination="zv9-O0-vt5" eventType="valueChanged" id="iWa-SE-rdw"/>
+                                </connections>
+                            </segmentedControl>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
+                            <constraint firstItem="IEj-b0-fOh" firstAttribute="top" secondItem="yoq-I2-C2b" secondAttribute="bottom" constant="20" id="GH0-1C-iRw"/>
+                            <constraint firstItem="IEj-b0-fOh" firstAttribute="centerX" secondItem="MJ4-69-m96" secondAttribute="centerX" id="LaT-qr-2rM"/>
                             <constraint firstItem="XRa-oY-gSg" firstAttribute="top" secondItem="sPf-Td-5WF" secondAttribute="top" constant="120" id="Nyh-Ju-3hd"/>
                             <constraint firstItem="XRa-oY-gSg" firstAttribute="leading" secondItem="sPf-Td-5WF" secondAttribute="leading" constant="35" id="SgK-gJ-GzF"/>
                             <constraint firstItem="yoq-I2-C2b" firstAttribute="centerX" secondItem="MJ4-69-m96" secondAttribute="centerX" id="khE-Jc-puQ"/>
@@ -77,6 +96,8 @@
                     <navigationItem key="navigationItem" title="Sample" id="Woo-mO-N5H"/>
                     <connections>
                         <outlet property="avg" destination="yoq-I2-C2b" id="IA7-Zc-ckN"/>
+                        <outlet property="chart" destination="XRa-oY-gSg" id="tTX-gb-59C"/>
+                        <outlet property="segment" destination="IEj-b0-fOh" id="veq-c1-NAF"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jCY-RS-m0U" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -121,7 +142,7 @@
         <!--History-->
         <scene sceneID="OIg-LO-Lol">
             <objects>
-                <navigationController id="D4S-df-Quq" customClass="HIstoryViewController" sceneMemberID="viewController">
+                <navigationController id="D4S-df-Quq" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="History" image="clock" catalog="system" id="QSb-1K-Xby"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="KfF-Tk-bQh">
                         <rect key="frame" x="0.0" y="44" width="414" height="96"/>
@@ -134,6 +155,67 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="210-oQ-KAF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="668" y="86"/>
+        </scene>
+        <!--History-->
+        <scene sceneID="iH9-Ea-UDu">
+            <objects>
+                <viewController id="0Qq-JZ-vif" customClass="HistoryDetailViewController" customModule="Temp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="eyb-U6-ArU">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wY4-9g-Oxd" customClass="LineChartView" customModule="Charts">
+                                <rect key="frame" x="35" y="260" width="344" height="350"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="350" id="r4Z-hl-I3w"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="300" id="r9b-H1-fPq"/>
+                                </constraints>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jnL-7H-wTh">
+                                <rect key="frame" x="107" y="150" width="200" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="200" id="2cs-4h-D3Z"/>
+                                    <constraint firstAttribute="height" constant="30" id="scg-Wm-Vjd"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="kn1-sA-CUR">
+                                <rect key="frame" x="147" y="200" width="120" height="31"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="120" id="009-65-3Ot"/>
+                                    <constraint firstAttribute="height" constant="30" id="Jlx-Tk-pGK"/>
+                                </constraints>
+                                <segments>
+                                    <segment title="°C"/>
+                                    <segment title="°F"/>
+                                </segments>
+                            </segmentedControl>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="kn1-sA-CUR" firstAttribute="top" secondItem="jnL-7H-wTh" secondAttribute="bottom" constant="20" id="21o-tU-CeL"/>
+                            <constraint firstItem="jnL-7H-wTh" firstAttribute="centerX" secondItem="eyb-U6-ArU" secondAttribute="centerX" id="2LX-nC-fpe"/>
+                            <constraint firstItem="wY4-9g-Oxd" firstAttribute="leading" secondItem="Bi7-88-cDq" secondAttribute="leading" constant="35" id="6Xg-UY-q2z"/>
+                            <constraint firstItem="wY4-9g-Oxd" firstAttribute="centerX" secondItem="eyb-U6-ArU" secondAttribute="centerX" id="NDS-PX-3ae"/>
+                            <constraint firstItem="wY4-9g-Oxd" firstAttribute="top" secondItem="Bi7-88-cDq" secondAttribute="top" constant="120" id="UpK-xr-Yxa"/>
+                            <constraint firstItem="kn1-sA-CUR" firstAttribute="centerX" secondItem="eyb-U6-ArU" secondAttribute="centerX" id="eyf-nX-cFf"/>
+                            <constraint firstItem="jnL-7H-wTh" firstAttribute="top" secondItem="Bi7-88-cDq" secondAttribute="top" constant="10" id="v8T-SY-Noo"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Bi7-88-cDq"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Item" id="DM8-IE-Yyb"/>
+                    <navigationItem key="navigationItem" title="History" id="zFr-gl-fpG"/>
+                    <connections>
+                        <outlet property="avg" destination="jnL-7H-wTh" id="FQs-kQ-eKf"/>
+                        <outlet property="chart" destination="wY4-9g-Oxd" id="0hZ-Xn-UsV"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="mBq-Qs-Ab8" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1560.8695652173915" y="789.50892857142856"/>
         </scene>
     </scenes>
     <resources>
