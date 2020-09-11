@@ -48,11 +48,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XRa-oY-gSg" customClass="LineChartView" customModule="Charts">
-                                <rect key="frame" x="35" y="260" width="344" height="350"/>
+                                <rect key="frame" x="15" y="260" width="384" height="320"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="300" id="8Xy-j6-eK3"/>
-                                    <constraint firstAttribute="height" constant="350" id="KpA-7M-mnk"/>
+                                    <constraint firstAttribute="height" constant="320" id="KpA-7M-mnk"/>
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yoq-I2-C2b">
@@ -79,13 +78,21 @@
                                     <action selector="didUpdateSegment:" destination="zv9-O0-vt5" eventType="valueChanged" id="iWa-SE-rdw"/>
                                 </connections>
                             </segmentedControl>
+                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kDJ-Ae-xwR">
+                                <rect key="frame" x="47" y="600" width="320" height="100"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="wVC-8O-hSK"/>
+                                </constraints>
+                            </pickerView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
+                            <constraint firstItem="kDJ-Ae-xwR" firstAttribute="top" secondItem="XRa-oY-gSg" secondAttribute="bottom" constant="20" id="8mC-wK-SaA"/>
                             <constraint firstItem="IEj-b0-fOh" firstAttribute="top" secondItem="yoq-I2-C2b" secondAttribute="bottom" constant="20" id="GH0-1C-iRw"/>
                             <constraint firstItem="IEj-b0-fOh" firstAttribute="centerX" secondItem="MJ4-69-m96" secondAttribute="centerX" id="LaT-qr-2rM"/>
                             <constraint firstItem="XRa-oY-gSg" firstAttribute="top" secondItem="sPf-Td-5WF" secondAttribute="top" constant="120" id="Nyh-Ju-3hd"/>
-                            <constraint firstItem="XRa-oY-gSg" firstAttribute="leading" secondItem="sPf-Td-5WF" secondAttribute="leading" constant="35" id="SgK-gJ-GzF"/>
+                            <constraint firstItem="XRa-oY-gSg" firstAttribute="leading" secondItem="sPf-Td-5WF" secondAttribute="leading" constant="15" id="SgK-gJ-GzF"/>
+                            <constraint firstItem="kDJ-Ae-xwR" firstAttribute="centerX" secondItem="MJ4-69-m96" secondAttribute="centerX" id="dSH-r7-nRh"/>
                             <constraint firstItem="yoq-I2-C2b" firstAttribute="centerX" secondItem="MJ4-69-m96" secondAttribute="centerX" id="khE-Jc-puQ"/>
                             <constraint firstItem="XRa-oY-gSg" firstAttribute="centerX" secondItem="MJ4-69-m96" secondAttribute="centerX" id="qQu-g1-XFP"/>
                             <constraint firstItem="yoq-I2-C2b" firstAttribute="top" secondItem="sPf-Td-5WF" secondAttribute="top" constant="10" id="s5l-O7-bTq"/>
@@ -165,11 +172,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wY4-9g-Oxd" customClass="LineChartView" customModule="Charts">
-                                <rect key="frame" x="35" y="260" width="344" height="350"/>
+                                <rect key="frame" x="15" y="260" width="384" height="350"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="350" id="r4Z-hl-I3w"/>
-                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="300" id="r9b-H1-fPq"/>
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jnL-7H-wTh">
@@ -198,7 +204,7 @@
                         <constraints>
                             <constraint firstItem="kn1-sA-CUR" firstAttribute="top" secondItem="jnL-7H-wTh" secondAttribute="bottom" constant="20" id="21o-tU-CeL"/>
                             <constraint firstItem="jnL-7H-wTh" firstAttribute="centerX" secondItem="eyb-U6-ArU" secondAttribute="centerX" id="2LX-nC-fpe"/>
-                            <constraint firstItem="wY4-9g-Oxd" firstAttribute="leading" secondItem="Bi7-88-cDq" secondAttribute="leading" constant="35" id="6Xg-UY-q2z"/>
+                            <constraint firstItem="wY4-9g-Oxd" firstAttribute="leading" secondItem="Bi7-88-cDq" secondAttribute="leading" constant="15" id="3lT-oE-TJI"/>
                             <constraint firstItem="wY4-9g-Oxd" firstAttribute="centerX" secondItem="eyb-U6-ArU" secondAttribute="centerX" id="NDS-PX-3ae"/>
                             <constraint firstItem="wY4-9g-Oxd" firstAttribute="top" secondItem="Bi7-88-cDq" secondAttribute="top" constant="120" id="UpK-xr-Yxa"/>
                             <constraint firstItem="kn1-sA-CUR" firstAttribute="centerX" secondItem="eyb-U6-ArU" secondAttribute="centerX" id="eyf-nX-cFf"/>

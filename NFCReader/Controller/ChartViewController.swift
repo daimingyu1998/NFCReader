@@ -21,11 +21,6 @@ class ChartViewController: UIViewController,ChartViewDelegate {
     var frameLayout: StackFrameLayout!
     let saveButton = NKButton.DefaultButton(title: "Save", color: UIColor(red:0.25, green:0.39, blue:0.80, alpha:1.00))
     let startButton = NKButton.DefaultButton(title: "Start", color: UIColor(red:0.42, green:0.67, blue:0.91, alpha:1.00))
-    lazy var lineChart: LineChartView = {
-        let chart = LineChartView()
-
-        return chart
-    }()
     override func viewDidLoad() {
         super.viewDidLoad()
         setButton()

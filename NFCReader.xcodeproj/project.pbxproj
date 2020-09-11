@@ -19,6 +19,7 @@
 		076CD12724BCCF4C006226C2 /* NFCReader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 076CD12624BCCF4C006226C2 /* NFCReader.swift */; };
 		076FDB8024D0D6D700A1A86F /* TemperatureManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 076FDB7F24D0D6D700A1A86F /* TemperatureManager.swift */; };
 		076FDB8224D0D6E400A1A86F /* ChartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 076FDB8124D0D6E400A1A86F /* ChartViewController.swift */; };
+		0783D37E250A472000D007EB /* BlueToothViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0783D37D250A472000D007EB /* BlueToothViewController.swift */; };
 		078953AE25050270002AA16A /* HistoryDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 078953AD25050270002AA16A /* HistoryDetailViewController.swift */; };
 		EF9B2C720E2AAE5880199FDA /* Pods_NFCReader.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B36B293D381B4508EEEB1CB /* Pods_NFCReader.framework */; };
 /* End PBXBuildFile section */
@@ -41,6 +42,7 @@
 		076CD12624BCCF4C006226C2 /* NFCReader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NFCReader.swift; sourceTree = "<group>"; };
 		076FDB7F24D0D6D700A1A86F /* TemperatureManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TemperatureManager.swift; sourceTree = "<group>"; };
 		076FDB8124D0D6E400A1A86F /* ChartViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChartViewController.swift; sourceTree = "<group>"; };
+		0783D37D250A472000D007EB /* BlueToothViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlueToothViewController.swift; sourceTree = "<group>"; };
 		078953AD25050270002AA16A /* HistoryDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryDetailViewController.swift; sourceTree = "<group>"; };
 		087631F2B11CF7A66FD2A7F7 /* Pods-NFCReader.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NFCReader.debug.xcconfig"; path = "Target Support Files/Pods-NFCReader/Pods-NFCReader.debug.xcconfig"; sourceTree = "<group>"; };
 		3C7D6D05669F650CA3BC0EF2 /* Pods-NFCReader.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NFCReader.release.xcconfig"; path = "Target Support Files/Pods-NFCReader/Pods-NFCReader.release.xcconfig"; sourceTree = "<group>"; };
@@ -105,6 +107,7 @@
 			children = (
 				076CD11624BCCF39006226C2 /* HistoryViewController.swift */,
 				076FDB8124D0D6E400A1A86F /* ChartViewController.swift */,
+				0783D37D250A472000D007EB /* BlueToothViewController.swift */,
 				078953AD25050270002AA16A /* HistoryDetailViewController.swift */,
 			);
 			path = Controller;
@@ -267,6 +270,7 @@
 			files = (
 				078953AE25050270002AA16A /* HistoryDetailViewController.swift in Sources */,
 				076CD12724BCCF4C006226C2 /* NFCReader.swift in Sources */,
+				0783D37E250A472000D007EB /* BlueToothViewController.swift in Sources */,
 				0743655624D0A21D00543078 /* SensorData.swift in Sources */,
 				076FDB8224D0D6E400A1A86F /* ChartViewController.swift in Sources */,
 				076CD11724BCCF39006226C2 /* HistoryViewController.swift in Sources */,
