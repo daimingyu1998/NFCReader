@@ -13,6 +13,10 @@ class BlueToothViewController: UIViewController, CBCentralManagerDelegate, CBPer
     enum SendDataError: Error{
         case CharaterisitcNotFound
     }
+    @IBOutlet weak var text0: UITextField!
+    @IBOutlet weak var text1: UITextField!
+    @IBOutlet weak var text2: UITextField!
+    var state = 0
     var centralManager: CBCentralManager!
     var connectPeripheral: CBPeripheral!
     var charDictionary = [String: CBCharacteristic]()
@@ -86,9 +90,10 @@ class BlueToothViewController: UIViewController, CBCentralManagerDelegate, CBPer
             print("Found:\(uuidString)")
         }
     }
-    func sendData(_ data: Data, uuidString:String, writeType: CBCharacteristicWriteType) throws{
+    func sendData(_ data: Data, uuidString:String, writeType: CBCharacteristicWriteType){
         guard let charateristic = charDictionary[uuidString] else{
-            throw SendDataError.CharaterisitcNotFound
+            print("error")
+            return
         }
         connectPeripheral.writeValue(data, for: charateristic, type: writeType)
     }
@@ -101,12 +106,48 @@ class BlueToothViewController: UIViewController, CBCentralManagerDelegate, CBPer
         {
             let data = characteristic.value!
             DispatchQueue.main.async {
-                var string = data.hexEncodedString()
-                print(string)
-                
+                let string = data.hexEncodedString()
+                switch self.state {
+                case 0:
+                    self.text0.text = string
+                case 1:
+                    self.text1.text = string
+                case 2:
+                    self.text2.text = string
+                default:
+                    return
+                }
             }
         }
     }
 
-
+    @IBAction func start(_ sender: UIButton) {
+        guard connectPeripheral != nil else{
+            return
+        }
+        let uuid = "6E400003-B5A3-F393-E0A9-E50E24DCCA9E"
+        guard charDictionary[uuid] != nil else
+        {
+            return
+        }
+        self.connectPeripheral.setNotifyValue(true, for: charDictionary[uuid]!)
+        var data = Data()
+        Timer.scheduledTimer(withTimeInterval: 1, repeats: true){ timer in
+            switch self.state {
+            case 0:
+                data = Data(hexString: "00")!
+                self.sendData(data, uuidString: "6E400002-B5A3-F393-E0A9-E50E24DCCA9E", writeType: .withoutResponse)
+            case 1:
+                data = Data(hexString: "01")!
+                self.sendData(data, uuidString: "6E400002-B5A3-F393-E0A9-E50E24DCCA9E", writeType: .withoutResponse)
+            case 2:
+                data = Data(hexString: "02")!
+                self.sendData(data, uuidString: "6E400002-B5A3-F393-E0A9-E50E24DCCA9E", writeType: .withoutResponse)
+            default:
+                return
+            }
+            self.state = (self.state + 1) % 3
+        }
+    }
+    
 }

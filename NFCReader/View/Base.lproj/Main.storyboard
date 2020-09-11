@@ -32,7 +32,7 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="History" id="x0s-NN-p4T"/>
                     <connections>
-                        <segue destination="0Qq-JZ-vif" kind="show" id="DOQ-LQ-DEF"/>
+                        <segue destination="0Qq-JZ-vif" kind="show" identifier="detail" id="DOQ-LQ-DEF"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kHT-4j-1aM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -67,7 +67,7 @@
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="IEj-b0-fOh">
                                 <rect key="frame" x="147" y="200" width="120" height="31"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="120" id="FVc-jF-sOx"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="120" id="FVc-jF-sOx"/>
                                     <constraint firstAttribute="height" constant="30" id="SUR-21-8KZ"/>
                                 </constraints>
                                 <segments>
@@ -141,6 +141,7 @@
                     <connections>
                         <segue destination="Mw5-bk-N8b" kind="relationship" relationship="viewControllers" id="uqL-eu-43U"/>
                         <segue destination="D4S-df-Quq" kind="relationship" relationship="viewControllers" id="hwA-rV-uGV"/>
+                        <segue destination="D4I-kg-duz" kind="relationship" relationship="viewControllers" id="p0Z-rJ-4Hy"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BcV-0o-lEe" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -163,6 +164,72 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="210-oQ-KAF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="668" y="86"/>
+        </scene>
+        <!--Item-->
+        <scene sceneID="ZkO-7t-IxH">
+            <objects>
+                <navigationController id="D4I-kg-duz" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Item" id="uiu-qA-C4t"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="mze-CN-uZ2">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="Y4X-ZS-ulY" kind="relationship" relationship="rootViewController" id="Pxu-PJ-3Nu"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vZm-rf-I2h" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1561" y="86"/>
+        </scene>
+        <!--Blue Tooth View Controller-->
+        <scene sceneID="Ffz-hX-ObC">
+            <objects>
+                <viewController id="Y4X-ZS-ulY" customClass="BlueToothViewController" customModule="Temp" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="isb-eN-I6C">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vOx-CU-FZY">
+                                <rect key="frame" x="101" y="250" width="213" height="34"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="c4r-6Q-Khf">
+                                <rect key="frame" x="101" y="359" width="213" height="34"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6sG-o0-YZa">
+                                <rect key="frame" x="101" y="471" width="213" height="34"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Za-1j-1Tm">
+                                <rect key="frame" x="175" y="550" width="65" height="61"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="start"/>
+                                <connections>
+                                    <action selector="start:" destination="Y4X-ZS-ulY" eventType="touchUpInside" id="X7j-ZL-lSk"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="zwC-jg-zzm"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="Q0M-Dk-mwn"/>
+                    <connections>
+                        <outlet property="text0" destination="vOx-CU-FZY" id="gyG-k3-fgQ"/>
+                        <outlet property="text1" destination="c4r-6Q-Khf" id="uKZ-Cd-q7f"/>
+                        <outlet property="text2" destination="6sG-o0-YZa" id="QlV-3U-t1q"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ngg-7B-bbq" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2515.9420289855075" y="73.660714285714278"/>
         </scene>
         <!--History-->
         <scene sceneID="iH9-Ea-UDu">
@@ -192,7 +259,7 @@
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="kn1-sA-CUR">
                                 <rect key="frame" x="147" y="200" width="120" height="31"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="120" id="009-65-3Ot"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="120" id="009-65-3Ot"/>
                                     <constraint firstAttribute="height" constant="30" id="Jlx-Tk-pGK"/>
                                 </constraints>
                                 <segments>

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		071CF748250BBA71003204F9 /* BalloonMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 071CF747250BBA71003204F9 /* BalloonMarker.swift */; };
 		071D099424D12506005BC3DB /* SensorRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 071D099324D12506005BC3DB /* SensorRecord.swift */; };
 		0732E40724C8965000F8BDEF /* NFCReaderDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0732E40624C8965000F8BDEF /* NFCReaderDelegate.swift */; };
 		0743655624D0A21D00543078 /* SensorData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0743655524D0A21D00543078 /* SensorData.swift */; };
@@ -26,6 +27,7 @@
 
 /* Begin PBXFileReference section */
 		0707160924C6E9C600CBC0C9 /* NFCReader.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NFCReader.entitlements; sourceTree = "<group>"; };
+		071CF747250BBA71003204F9 /* BalloonMarker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BalloonMarker.swift; sourceTree = "<group>"; };
 		071D099324D12506005BC3DB /* SensorRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensorRecord.swift; sourceTree = "<group>"; };
 		0732E40624C8965000F8BDEF /* NFCReaderDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NFCReaderDelegate.swift; sourceTree = "<group>"; };
 		073845CA24D24B8400644969 /* Realm.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Realm.framework; path = "../../../Downloads/realm-swift-5.3.2/ios/swift-11.6/Realm.framework"; sourceTree = "<group>"; };
@@ -107,6 +109,7 @@
 			children = (
 				076CD11624BCCF39006226C2 /* HistoryViewController.swift */,
 				076FDB8124D0D6E400A1A86F /* ChartViewController.swift */,
+				071CF747250BBA71003204F9 /* BalloonMarker.swift */,
 				0783D37D250A472000D007EB /* BlueToothViewController.swift */,
 				078953AD25050270002AA16A /* HistoryDetailViewController.swift */,
 			);
@@ -269,6 +272,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				078953AE25050270002AA16A /* HistoryDetailViewController.swift in Sources */,
+				071CF748250BBA71003204F9 /* BalloonMarker.swift in Sources */,
 				076CD12724BCCF4C006226C2 /* NFCReader.swift in Sources */,
 				0783D37E250A472000D007EB /* BlueToothViewController.swift in Sources */,
 				0743655624D0A21D00543078 /* SensorData.swift in Sources */,

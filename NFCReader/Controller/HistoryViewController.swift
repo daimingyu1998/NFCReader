@@ -31,6 +31,16 @@ class HistoryViewController: UITableViewController {
         return cell
          
     }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "detail"
+        {
+            let destVC = segue.destination as! HistoryDetailViewController
+            destVC.sensorRecord = sensorRecords[sender as! Int]
+        }
+    }
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        performSegue(withIdentifier: "detail", sender: indexPath)
+    }
 }
 
 

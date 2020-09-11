@@ -55,6 +55,14 @@ class ChartViewController: UIViewController,ChartViewDelegate {
         updateData()
     }
     @objc func startButtonPressed(_ sender: UIButton) {
+        let testTime = picker.selectedRow(inComponent: 0) * 60 + picker.selectedRow(inComponent: 1) * 15
+        guard testTime > 0 else{
+            let alert = UIAlertController(title: "Start Failed", message: "Please choose a valid time", preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+            alert.addAction(okAction)
+            self.present(alert, animated: true,completion:nil)
+            return
+        }
         NFCReader1.startSession()
         
         Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true) { timer in
@@ -131,6 +139,13 @@ class ChartViewController: UIViewController,ChartViewDelegate {
         chart.dragEnabled = false
         chart.doubleTapToZoomEnabled = false
         chart.pinchZoomEnabled = false
+        let marker = BalloonMarker(color: UIColor(white: 180/255, alpha: 1),
+                                   font: .systemFont(ofSize: 12),
+                                   textColor: .white,
+                                   insets: UIEdgeInsets(top: 8, left: 8, bottom: 20, right: 8))
+        marker.chartView = chart
+        marker.minimumSize = CGSize(width: 80, height: 40)
+        chart.marker = marker
     }
     func setButton(){
         startButton.setBackgroundColor(UIColor(red:0.45, green:0.59, blue:1.0, alpha:1.00), for: .highlighted)
