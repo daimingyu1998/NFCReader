@@ -16,17 +16,36 @@ class ChartViewController: UIViewController,ChartViewDelegate {
     @IBOutlet weak var avg: UILabel!
     @IBOutlet weak var chart: LineChartView!
     @IBOutlet weak var segment: UISegmentedControl!
+    @IBOutlet weak var picker: UIPickerView!
     var NFCReader1 = NFCReader()
     var temperatureManager = TemperatureManager()
     var frameLayout: StackFrameLayout!
     let saveButton = NKButton.DefaultButton(title: "Save", color: UIColor(red:0.25, green:0.39, blue:0.80, alpha:1.00))
     let startButton = NKButton.DefaultButton(title: "Start", color: UIColor(red:0.42, green:0.67, blue:0.91, alpha:1.00))
+    var pickerMinuteData = { () -> [Int] in
+        var list = [Int]()
+        for i in 0...60{
+            list.append(i)
+        }
+        return list
+    }()
+    var pickerSecondData = { () -> [Int] in
+        var list = [Int]()
+        for i in 0...60{
+            if i % 15 == 0{
+                list.append(i)
+            }
+        }
+        return list
+    }()
+    var pickerCitiesData: [String] = ["写代码","玩游戏","泡妹子"]//第二级数据
     override func viewDidLoad() {
         super.viewDidLoad()
         setButton()
         setChart()
         avg.isHidden = true
-        
+        picker.delegate = self
+        picker.dataSource = self
     }
     
     @IBAction func didUpdateSegment(_ sender: UISegmentedControl) {
@@ -153,6 +172,45 @@ class ChartViewController: UIViewController,ChartViewDelegate {
         view.addSubview(saveButton)
         view.addSubview(frameLayout)
     }
+}
+extension ChartViewController: UIPickerViewDelegate,UIPickerViewDataSource
+{
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 2
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        switch component {
+        case 0:
+            return pickerMinuteData.count
+        default:
+            return pickerSecondData.count
+        }
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
+        //将图片设为PickerView选型
+        var pickerLabel = view as? UILabel
+        if pickerLabel == nil{
+            pickerLabel = UILabel()
+            pickerLabel?.font = UIFont.systemFont(ofSize: 18)
+            pickerLabel?.textAlignment = .center
+        }
+        var string = ""
+        switch component {
+        case 0:
+            string = String(pickerMinuteData[row]) + " mins"
+        default:
+            string =  String(pickerSecondData[row]) + " secs"
+        }
+        pickerLabel?.text = string
+        return pickerLabel!
+    }
+    func pickerView(_ pickerView: UIPickerView, widthForComponent component: Int) -> CGFloat {
+        return 100
+    }
+    
+    
 }
 extension NKButton {
     

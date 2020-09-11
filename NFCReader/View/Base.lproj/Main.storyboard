@@ -48,10 +48,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XRa-oY-gSg" customClass="LineChartView" customModule="Charts">
-                                <rect key="frame" x="15" y="260" width="384" height="320"/>
+                                <rect key="frame" x="15" y="260" width="384" height="300"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="320" id="KpA-7M-mnk"/>
+                                    <constraint firstAttribute="height" constant="300" id="KpA-7M-mnk"/>
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yoq-I2-C2b">
@@ -79,7 +79,7 @@
                                 </connections>
                             </segmentedControl>
                             <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kDJ-Ae-xwR">
-                                <rect key="frame" x="47" y="600" width="320" height="100"/>
+                                <rect key="frame" x="47" y="560" width="320" height="100"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="100" id="wVC-8O-hSK"/>
                                 </constraints>
@@ -87,7 +87,7 @@
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="kDJ-Ae-xwR" firstAttribute="top" secondItem="XRa-oY-gSg" secondAttribute="bottom" constant="20" id="8mC-wK-SaA"/>
+                            <constraint firstItem="kDJ-Ae-xwR" firstAttribute="top" secondItem="XRa-oY-gSg" secondAttribute="bottom" id="8mC-wK-SaA"/>
                             <constraint firstItem="IEj-b0-fOh" firstAttribute="top" secondItem="yoq-I2-C2b" secondAttribute="bottom" constant="20" id="GH0-1C-iRw"/>
                             <constraint firstItem="IEj-b0-fOh" firstAttribute="centerX" secondItem="MJ4-69-m96" secondAttribute="centerX" id="LaT-qr-2rM"/>
                             <constraint firstItem="XRa-oY-gSg" firstAttribute="top" secondItem="sPf-Td-5WF" secondAttribute="top" constant="120" id="Nyh-Ju-3hd"/>
@@ -104,6 +104,7 @@
                     <connections>
                         <outlet property="avg" destination="yoq-I2-C2b" id="IA7-Zc-ckN"/>
                         <outlet property="chart" destination="XRa-oY-gSg" id="tTX-gb-59C"/>
+                        <outlet property="picker" destination="kDJ-Ae-xwR" id="u5Z-m2-ZfK"/>
                         <outlet property="segment" destination="IEj-b0-fOh" id="veq-c1-NAF"/>
                     </connections>
                 </viewController>
