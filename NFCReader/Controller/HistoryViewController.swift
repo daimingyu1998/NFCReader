@@ -14,7 +14,8 @@ class HistoryViewController: UITableViewController {
     var NFCReader1 = NFCReader()
     var sensorRecords: Results<SensorRecord>!
     override func viewDidLoad() {
-        NotificationCenter.default.addObserver(self, selector: #selector(tableView.reloadData), name: Notification.Name("updateTV"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(update), name: Notification.Name("updateTV"), object: nil)
+        tableView.rowHeight = 80.0
         super.viewDidLoad()
     }
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -24,10 +25,14 @@ class HistoryViewController: UITableViewController {
 
     }
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell")!
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! SwipeTableViewCell
+        cell.delegate = self
         let realm = try! Realm()
         sensorRecords = realm.objects(SensorRecord.self)
-        cell.textLabel?.text = sensorRecords[indexPath.row].getStartTime()?.description
+        let date = sensorRecords[indexPath.row].getStartTime()!
+        let df = DateFormatter()
+        df.dateFormat = "y-MM-dd H:m:ss"
+        cell.textLabel?.text = df.string(from: date)
         return cell
          
     }
@@ -39,8 +44,33 @@ class HistoryViewController: UITableViewController {
         }
     }
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        performSegue(withIdentifier: "detail", sender: indexPath)
+        performSegue(withIdentifier: "detail", sender: indexPath.row)
     }
+    @objc func update(){
+        tableView.reloadData()
+    }
+}
+extension HistoryViewController: SwipeTableViewCellDelegate{
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath, for orientation: SwipeActionsOrientation) -> [SwipeAction]? {
+        guard orientation == .right else{return nil}
+        let realm = try! Realm()
+        let deleteAction = SwipeAction(style: .destructive, title: "Delete"){ action, indexPath in
+            if let recordForDeletion = self.sensorRecords?[indexPath.row]{
+                do{
+                    try realm.write{
+                        realm.delete(recordForDeletion)
+                    }
+                }catch{
+                    print("deletion error")
+                }
+            }
+            tableView.reloadData()
+        }
+        deleteAction.image = UIImage(named: "delete")
+        return [deleteAction]
+    }
+    
+    
 }
 
 

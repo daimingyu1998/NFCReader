@@ -16,6 +16,7 @@ class NFCReader: NSObject, NFCTagReaderSessionDelegate {
     var sensorRecord: SensorRecord? = nil
     var dataReady = false
     var singleDataReady = false
+    var testFinished = false
     var text: String = ""
     {
         didSet
@@ -25,6 +26,7 @@ class NFCReader: NSObject, NFCTagReaderSessionDelegate {
     }
     func startSession() {
         dataReady = false
+        singleDataReady = false
         tagSession = NFCTagReaderSession(pollingOption: [.iso15693], delegate: self, queue: .main)
         tagSession?.alertMessage = "Hold the top of your iPhone near the sensor board"
         tagSession?.begin()
@@ -47,17 +49,21 @@ class NFCReader: NSObject, NFCTagReaderSessionDelegate {
         
         guard let firstTag = tags.first else { return }
         guard case .iso15693(let tag) = firstTag else { return }
-        self.sensorRecord = SensorRecord()
+        if self.sensorRecord == nil{
+            self.sensorRecord = SensorRecord()
+        }
         var time = 0
+        let totalTime = testTime > 15 ? 15 : testTime
+        let remainTime = testTime - totalTime
         session.connect(to: firstTag) { error in
             guard error == nil else{
                 print("NFC: \(error!.localizedDescription)")
                 session.invalidate(errorMessage: "Connection failure: \(error!.localizedDescription)")
                 return
             }
+            self.connectedTag = tag
             Timer.scheduledTimer(withTimeInterval: 1, repeats: true){ timer in
-                session.alertMessage = "Remaining time:\(self.testTime - time)"
-                self.connectedTag = tag
+                session.alertMessage = "Remaining time: \(self.testTime - time) secs"
                 self.connectedTag?.readSingleBlock(requestFlags: [.highDataRate,.address], blockNumber: 0){ (data, error) in
                     guard error == nil else{
                         session.invalidate(errorMessage: "Error while reading block: \(error!.localizedDescription)")
@@ -68,7 +74,7 @@ class NFCReader: NSObject, NFCTagReaderSessionDelegate {
                     let statusIndexmid = string.index(string.startIndex, offsetBy: 2)
                     let statusIndexend = string.index(string.startIndex, offsetBy: 4)
                     let statusStringSlice = string[statusIndexstart..<statusIndexmid] + string[statusIndexmid..<statusIndexend]
-                    print(statusStringSlice)
+                    self.singleDataReady = false
                     if statusStringSlice == "0002"
                     {
                         self.singleDataReady = true
@@ -76,7 +82,7 @@ class NFCReader: NSObject, NFCTagReaderSessionDelegate {
                 }
                 self.connectedTag?.writeSingleBlock(requestFlags: [.highDataRate,.address], blockNumber: 0, dataBlock: Data(hexString: "0101070001010040")!){error in
                     guard error == nil else{
-                        print(error)
+                        print(error ?? "error")
                         return
                     }
                 }
@@ -99,13 +105,27 @@ class NFCReader: NSObject, NFCTagReaderSessionDelegate {
                     time += 1
                     if self.singleDataReady == true{
                         self.sensorRecord?.add(SensorData(refValue: refValue, thermValue: thermValue))
-                        if  time == self.testTime + 1
+                        if  time == totalTime + 1
                         {
-                            session.alertMessage = "Scan complete"
-                            session.invalidate()
-                            timer.invalidate()
+                            if remainTime <= 0{
+                                session.alertMessage = "Scan complete"
+                                session.invalidate()
+                                timer.invalidate()
+                                
+                                self.dataReady = true
+                            }
+                            else{
+                                session.alertMessage = "Please wait for the next pop up"
+                                print(remainTime)
+                                session.invalidate()
+                                timer.invalidate()
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 3.5) {
+                                    self.singleDataReady = false
+                                    self.testTime = remainTime - 4
+                                    self.startSession()
+                                }
+                            }
                             
-                            self.dataReady = true
                         }
                     }
                 }

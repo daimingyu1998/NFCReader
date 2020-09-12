@@ -10,6 +10,10 @@ import Foundation
 import RealmSwift
 class SensorRecord: Object{
     var data = List<SensorData>()
+    enum dataType {
+        case Celsius
+        case Fahrenheit
+    }
     @objc dynamic var name = ""
     convenience init(name: String){
         self.init()
@@ -38,14 +42,19 @@ class SensorRecord: Object{
             return nil
         }
     }
-    func getAverageTemp() -> Double?{
+    func getAverageTemp(in type: dataType) -> Double?{
         if data.isEmpty == true{
             return nil
         }
         else{
             var sum = 0.0
             for eachdata in data{
-                sum += eachdata.tempInC
+                switch type {
+                case .Celsius:
+                    sum += eachdata.tempInC
+                case .Fahrenheit:
+                    sum += eachdata.tempInF
+                }
             }
             let avg = sum/Double(data.count)
             print(avg)

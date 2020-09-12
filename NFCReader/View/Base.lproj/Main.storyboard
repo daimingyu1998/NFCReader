@@ -16,7 +16,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" id="Gz5-av-LS0">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" id="Gz5-av-LS0" customClass="SwipeTableViewCell" customModule="SwipeCellKit">
                                 <rect key="frame" x="0.0" y="28" width="414" height="43.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Gz5-av-LS0" id="DKj-XI-tDn">
@@ -266,6 +266,9 @@
                                     <segment title="°C"/>
                                     <segment title="°F"/>
                                 </segments>
+                                <connections>
+                                    <action selector="didChange:" destination="0Qq-JZ-vif" eventType="valueChanged" id="B5u-Pe-TUD"/>
+                                </connections>
                             </segmentedControl>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -285,6 +288,7 @@
                     <connections>
                         <outlet property="avg" destination="jnL-7H-wTh" id="FQs-kQ-eKf"/>
                         <outlet property="chart" destination="wY4-9g-Oxd" id="0hZ-Xn-UsV"/>
+                        <outlet property="segment" destination="kn1-sA-CUR" id="RaP-cx-A6n"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mBq-Qs-Ab8" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

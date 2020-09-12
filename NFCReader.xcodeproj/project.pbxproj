@@ -436,7 +436,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.0;
+				MARKETING_VERSION = 0.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.MingyuDai.TempSensor;
 				PRODUCT_NAME = Temp;
 				SWIFT_VERSION = 5.0;
@@ -458,7 +458,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 0.0;
+				MARKETING_VERSION = 0.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.MingyuDai.TempSensor;
 				PRODUCT_NAME = Temp;
 				SWIFT_VERSION = 5.0;

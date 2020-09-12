@@ -2,10 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>NSBluetoothPeripheralUsageDescription</key>
-	<string>use to get data</string>
-	<key>NSBluetoothAlwaysUsageDescription</key>
-	<string>use to get data</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>
@@ -26,6 +22,10 @@
 	<true/>
 	<key>NFCReaderUsageDescription</key>
 	<string>NFC tag to read NDEF messages into the application</string>
+	<key>NSBluetoothAlwaysUsageDescription</key>
+	<string>use to get data</string>
+	<key>NSBluetoothPeripheralUsageDescription</key>
+	<string>use to get data</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>

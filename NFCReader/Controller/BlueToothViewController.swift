@@ -49,13 +49,16 @@ class BlueToothViewController: UIViewController, CBCentralManagerDelegate, CBPer
         }else
         {
             centralManager.scanForPeripherals(withServices: nil, options: nil)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 3){
+                central.stopScan()
+            }
         }
     }
     func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
-        print("Found:\(peripheral.name)")
         guard peripheral.name != nil else{
             return
         }
+        print("Found:\(peripheral.name!)")
         guard peripheral.name == "WRST-MON" else{
             return
         }

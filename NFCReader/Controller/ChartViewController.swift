@@ -24,14 +24,14 @@ class ChartViewController: UIViewController,ChartViewDelegate {
     let startButton = NKButton.DefaultButton(title: "Start", color: UIColor(red:0.42, green:0.67, blue:0.91, alpha:1.00))
     var pickerMinuteData = { () -> [Int] in
         var list = [Int]()
-        for i in 0...60{
+        for i in 0..<60{
             list.append(i)
         }
         return list
     }()
     var pickerSecondData = { () -> [Int] in
         var list = [Int]()
-        for i in 0...60{
+        for i in 0..<60{
             if i % 15 == 0{
                 list.append(i)
             }
@@ -62,6 +62,8 @@ class ChartViewController: UIViewController,ChartViewDelegate {
             self.present(alert, animated: true,completion:nil)
             return
         }
+        NFCReader1.testTime = testTime
+        NFCReader1.sensorRecord = nil
         NFCReader1.startSession()
         
         Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true) { timer in
@@ -112,17 +114,17 @@ class ChartViewController: UIViewController,ChartViewDelegate {
         switch self.segment.selectedSegmentIndex {
         case 0:
             self.chart.data = self.temperatureManager.creatData(from: self.NFCReader1.sensorRecord!, in: .Celsius)
-            let average:Double = self.NFCReader1.sensorRecord?.getAverageTemp() ?? 0.0
+            let average:Double = self.NFCReader1.sensorRecord?.getAverageTemp(in: .Celsius) ?? 0.0
             DispatchQueue.main.async {
-                self.avg.text = String(format: "Average Temperature: %.3f °C", average)
+                self.avg.text = String(format: "Average Temp: %.3f °C", average)
                 self.avg.textColor =  #colorLiteral(red: 0.2588235438, green: 0.7568627596, blue: 0.9686274529, alpha: 1)
                 self.avg.isHidden = false
             }
         case 1:
             self.chart.data = self.temperatureManager.creatData(from: self.NFCReader1.sensorRecord!, in: .Fahrenheit)
-            let average:Double = self.NFCReader1.sensorRecord?.getAverageTemp() ?? 0.0
+            let average:Double = self.NFCReader1.sensorRecord?.getAverageTemp(in: .Fahrenheit) ?? 0.0
             DispatchQueue.main.async {
-                self.avg.text = String(format: "Average Temperature: %.3f °F", average)
+                self.avg.text = String(format: "Average Temp: %.3f °F", average)
                 self.avg.textColor =  #colorLiteral(red: 0.2588235438, green: 0.7568627596, blue: 0.9686274529, alpha: 1)
                 self.avg.isHidden = false
             }
@@ -145,12 +147,12 @@ class ChartViewController: UIViewController,ChartViewDelegate {
         chart.dragEnabled = false
         chart.doubleTapToZoomEnabled = false
         chart.pinchZoomEnabled = false
-        let marker = BalloonMarker(color: UIColor(white: 180/255, alpha: 1),
+        let marker = BalloonMarker(color: #colorLiteral(red: 0.4745098054, green: 0.8392156959, blue: 0.9764705896, alpha: 1),
                                    font: .systemFont(ofSize: 12),
                                    textColor: .white,
                                    insets: UIEdgeInsets(top: 8, left: 8, bottom: 20, right: 8))
         marker.chartView = chart
-        marker.minimumSize = CGSize(width: 80, height: 40)
+        marker.minimumSize = CGSize(width: 60, height: 30)
         chart.marker = marker
     }
     func setButton(){
