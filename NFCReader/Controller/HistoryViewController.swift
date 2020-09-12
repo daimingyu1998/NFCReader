@@ -14,7 +14,7 @@ class HistoryViewController: UITableViewController {
     var NFCReader1 = NFCReader()
     var sensorRecords: Results<SensorRecord>!
     override func viewDidLoad() {
-        
+        NotificationCenter.default.addObserver(self, selector: #selector(tableView.reloadData), name: Notification.Name("updateTV"), object: nil)
         super.viewDidLoad()
     }
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

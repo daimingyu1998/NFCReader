@@ -38,7 +38,6 @@ class ChartViewController: UIViewController,ChartViewDelegate {
         }
         return list
     }()
-    var pickerCitiesData: [String] = ["写代码","玩游戏","泡妹子"]//第二级数据
     override func viewDidLoad() {
         super.viewDidLoad()
         setButton()
@@ -69,13 +68,6 @@ class ChartViewController: UIViewController,ChartViewDelegate {
             if self.NFCReader1.dataReady == true
             {
                 self.updateData()
-                let average:Double = self.NFCReader1.sensorRecord?.getAverageTemp() ?? 0.0
-                DispatchQueue.main.async {
-                    self.avg.text = String(format: "Average Temperature: %.3f", average)
-                    self.avg.textColor =  #colorLiteral(red: 0.2588235438, green: 0.7568627596, blue: 0.9686274529, alpha: 1)
-                    self.avg.isHidden = false
-                }
-                
                 timer.invalidate()
             }
         }
@@ -94,6 +86,8 @@ class ChartViewController: UIViewController,ChartViewDelegate {
             try realm.write{
                 realm.add(NFCReader1.sensorRecord!)
             }
+            NotificationCenter.default.post(name:  Notification.Name("updateTV"), object: nil)
+           
         }
         catch{
             print("realm writing error")
@@ -118,8 +112,20 @@ class ChartViewController: UIViewController,ChartViewDelegate {
         switch self.segment.selectedSegmentIndex {
         case 0:
             self.chart.data = self.temperatureManager.creatData(from: self.NFCReader1.sensorRecord!, in: .Celsius)
+            let average:Double = self.NFCReader1.sensorRecord?.getAverageTemp() ?? 0.0
+            DispatchQueue.main.async {
+                self.avg.text = String(format: "Average Temperature: %.3f °C", average)
+                self.avg.textColor =  #colorLiteral(red: 0.2588235438, green: 0.7568627596, blue: 0.9686274529, alpha: 1)
+                self.avg.isHidden = false
+            }
         case 1:
             self.chart.data = self.temperatureManager.creatData(from: self.NFCReader1.sensorRecord!, in: .Fahrenheit)
+            let average:Double = self.NFCReader1.sensorRecord?.getAverageTemp() ?? 0.0
+            DispatchQueue.main.async {
+                self.avg.text = String(format: "Average Temperature: %.3f °F", average)
+                self.avg.textColor =  #colorLiteral(red: 0.2588235438, green: 0.7568627596, blue: 0.9686274529, alpha: 1)
+                self.avg.isHidden = false
+            }
         default:
             return
         }

@@ -22,6 +22,9 @@ class BlueToothViewController: UIViewController, CBCentralManagerDelegate, CBPer
     var charDictionary = [String: CBCharacteristic]()
     override func viewDidLoad() {
         super.viewDidLoad()
+        text0.isUserInteractionEnabled = false
+        text1.isUserInteractionEnabled = false
+        text2.isUserInteractionEnabled = false
         centralManager = CBCentralManager(delegate: self, queue: .global())
     }
     func isPaired() -> Bool{
