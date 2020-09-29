@@ -51,9 +51,9 @@ class SensorRecord: Object{
             for eachdata in data{
                 switch type {
                 case .Celsius:
-                    sum += eachdata.tempInC
+                    sum += eachdata.value
                 case .Fahrenheit:
-                    sum += eachdata.tempInF
+                    sum += eachdata.value * 1.8 + 32
                 }
             }
             let avg = sum/Double(data.count)

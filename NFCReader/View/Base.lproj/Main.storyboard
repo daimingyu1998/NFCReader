@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097.3" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="dxn-sl-ol2">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="dxn-sl-ol2">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -14,7 +16,7 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="RB3-O5-rfu">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" id="Gz5-av-LS0" customClass="SwipeTableViewCell" customModule="SwipeCellKit">
                                 <rect key="frame" x="0.0" y="28" width="414" height="43.5"/>
@@ -39,17 +41,17 @@
             </objects>
             <point key="canvasLocation" x="667" y="790"/>
         </scene>
-        <!--Sample-->
+        <!--NFC-->
         <scene sceneID="kgv-zS-TbQ">
             <objects>
-                <viewController id="zv9-O0-vt5" customClass="ChartViewController" customModule="Temp" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="zv9-O0-vt5" customClass="NFCChartViewController" customModule="Temp" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="MJ4-69-m96">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XRa-oY-gSg" customClass="LineChartView" customModule="Charts">
                                 <rect key="frame" x="15" y="260" width="384" height="300"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="300" id="KpA-7M-mnk"/>
                                 </constraints>
@@ -85,7 +87,8 @@
                                 </constraints>
                             </pickerView>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="sPf-Td-5WF"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="kDJ-Ae-xwR" firstAttribute="top" secondItem="XRa-oY-gSg" secondAttribute="bottom" id="8mC-wK-SaA"/>
                             <constraint firstItem="IEj-b0-fOh" firstAttribute="top" secondItem="yoq-I2-C2b" secondAttribute="bottom" constant="20" id="GH0-1C-iRw"/>
@@ -97,10 +100,9 @@
                             <constraint firstItem="XRa-oY-gSg" firstAttribute="centerX" secondItem="MJ4-69-m96" secondAttribute="centerX" id="qQu-g1-XFP"/>
                             <constraint firstItem="yoq-I2-C2b" firstAttribute="top" secondItem="sPf-Td-5WF" secondAttribute="top" constant="10" id="s5l-O7-bTq"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="sPf-Td-5WF"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Item" id="OHC-ac-xuP"/>
-                    <navigationItem key="navigationItem" title="Sample" id="Woo-mO-N5H"/>
+                    <navigationItem key="navigationItem" title="NFC" id="Woo-mO-N5H"/>
                     <connections>
                         <outlet property="avg" destination="yoq-I2-C2b" id="IA7-Zc-ckN"/>
                         <outlet property="chart" destination="XRa-oY-gSg" id="tTX-gb-59C"/>
@@ -112,11 +114,11 @@
             </objects>
             <point key="canvasLocation" x="-284.05797101449275" y="789.50892857142856"/>
         </scene>
-        <!--Temperature-->
+        <!--NFC-->
         <scene sceneID="3eD-R0-Fsm">
             <objects>
                 <navigationController id="Mw5-bk-N8b" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Temperature" image="thermometer" catalog="system" id="5iC-rQ-fqd"/>
+                    <tabBarItem key="tabBarItem" title="NFC" image="radiowaves.right" catalog="system" id="5iC-rQ-fqd"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="Dhg-QI-3Ow">
                         <rect key="frame" x="0.0" y="44" width="414" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -170,7 +172,7 @@
         <scene sceneID="ZkO-7t-IxH">
             <objects>
                 <navigationController id="D4I-kg-duz" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Bluetooth" id="uiu-qA-C4t"/>
+                    <tabBarItem key="tabBarItem" title="Bluetooth" image="bluetooth" selectedImage="bluetooth" id="uiu-qA-C4t"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="mze-CN-uZ2">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -215,7 +217,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Za-1j-1Tm">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Za-1j-1Tm">
                                 <rect key="frame" x="174.5" y="260" width="65" height="61"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="61" id="ahd-0r-PDG"/>
@@ -228,17 +230,18 @@
                             </button>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="2Gi-zC-pGh">
                                 <rect key="frame" x="57" y="331" width="300" height="450"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="450" id="2Qv-7M-iMR"/>
                                     <constraint firstAttribute="width" constant="300" id="6Z9-kL-kK6"/>
                                 </constraints>
-                                <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" systemColor="labelColor"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="zwC-jg-zzm"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="3Za-1j-1Tm" firstAttribute="top" secondItem="6sG-o0-YZa" secondAttribute="bottom" constant="20" id="60Z-Lr-Doh"/>
                             <constraint firstItem="2Gi-zC-pGh" firstAttribute="top" secondItem="3Za-1j-1Tm" secondAttribute="bottom" constant="10" id="ANw-Ts-vIF"/>
@@ -251,7 +254,6 @@
                             <constraint firstItem="6sG-o0-YZa" firstAttribute="centerX" secondItem="isb-eN-I6C" secondAttribute="centerX" id="tRq-uB-Oz7"/>
                             <constraint firstItem="2Gi-zC-pGh" firstAttribute="centerX" secondItem="isb-eN-I6C" secondAttribute="centerX" id="uFS-Ls-RV9"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="zwC-jg-zzm"/>
                     </view>
                     <navigationItem key="navigationItem" id="Q0M-Dk-mwn"/>
                     <connections>
@@ -270,8 +272,8 @@
             <objects>
                 <navigationController id="9oT-Ao-YCB" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Bluetooth chart" id="A6k-jI-TtQ"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="ePW-wQ-7gT">
-                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="ePW-wQ-7gT">
+                        <rect key="frame" x="0.0" y="44" width="414" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -292,7 +294,7 @@
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wY4-9g-Oxd" customClass="LineChartView" customModule="Charts">
                                 <rect key="frame" x="15" y="260" width="384" height="350"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="350" id="r4Z-hl-I3w"/>
                                 </constraints>
@@ -322,7 +324,8 @@
                                 </connections>
                             </segmentedControl>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="Bi7-88-cDq"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="kn1-sA-CUR" firstAttribute="top" secondItem="jnL-7H-wTh" secondAttribute="bottom" constant="20" id="21o-tU-CeL"/>
                             <constraint firstItem="jnL-7H-wTh" firstAttribute="centerX" secondItem="eyb-U6-ArU" secondAttribute="centerX" id="2LX-nC-fpe"/>
@@ -332,7 +335,6 @@
                             <constraint firstItem="kn1-sA-CUR" firstAttribute="centerX" secondItem="eyb-U6-ArU" secondAttribute="centerX" id="eyf-nX-cFf"/>
                             <constraint firstItem="jnL-7H-wTh" firstAttribute="top" secondItem="Bi7-88-cDq" secondAttribute="top" constant="10" id="v8T-SY-Noo"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="Bi7-88-cDq"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Item" id="DM8-IE-Yyb"/>
                     <navigationItem key="navigationItem" title="History" id="zFr-gl-fpG"/>
@@ -346,7 +348,7 @@
             </objects>
             <point key="canvasLocation" x="1560.8695652173915" y="789.50892857142856"/>
         </scene>
-        <!--Sample-->
+        <!--Bluetooth-->
         <scene sceneID="JXO-5H-LRT">
             <objects>
                 <viewController id="0fs-Pl-HzN" customClass="BluetoothChartViewController" customModule="Temp" customModuleProvider="target" sceneMemberID="viewController">
@@ -355,14 +357,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XQl-wy-B3p" customClass="LineChartView" customModule="Charts">
-                                <rect key="frame" x="15" y="208" width="384" height="300"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <rect key="frame" x="15" y="260" width="384" height="300"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="300" id="kiz-7I-pwZ"/>
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pvx-he-R54">
-                                <rect key="frame" x="107" y="98" width="200" height="30"/>
+                                <rect key="frame" x="107" y="150" width="200" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="200" id="0Vc-Ji-6oL"/>
                                     <constraint firstAttribute="height" constant="30" id="s8R-Et-iD6"/>
@@ -372,7 +374,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="3o6-dL-MFL">
-                                <rect key="frame" x="147" y="148" width="120" height="31"/>
+                                <rect key="frame" x="147" y="200" width="120" height="31"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="eW8-pb-2PH"/>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="120" id="gNq-dM-pgg"/>
@@ -386,13 +388,14 @@
                                 </connections>
                             </segmentedControl>
                             <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="O7T-jv-3xS">
-                                <rect key="frame" x="47" y="508" width="320" height="100"/>
+                                <rect key="frame" x="47" y="560" width="320" height="100"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="100" id="gXf-5p-oJX"/>
                                 </constraints>
                             </pickerView>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="2lS-d0-5gG"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="Pvx-he-R54" firstAttribute="top" secondItem="2lS-d0-5gG" secondAttribute="top" constant="10" id="3t8-lz-GTv"/>
                             <constraint firstItem="XQl-wy-B3p" firstAttribute="top" secondItem="2lS-d0-5gG" secondAttribute="top" constant="120" id="4tD-Fo-fc9"/>
@@ -404,10 +407,9 @@
                             <constraint firstItem="O7T-jv-3xS" firstAttribute="top" secondItem="XQl-wy-B3p" secondAttribute="bottom" id="qFv-1o-W3j"/>
                             <constraint firstItem="3o6-dL-MFL" firstAttribute="top" secondItem="Pvx-he-R54" secondAttribute="bottom" constant="20" id="rrm-Zz-uwa"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="2lS-d0-5gG"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Item" id="Ypj-5F-aKY"/>
-                    <navigationItem key="navigationItem" title="Sample" id="Adb-HY-Cx9"/>
+                    <navigationItem key="navigationItem" title="Bluetooth" id="Adb-HY-Cx9"/>
                     <connections>
                         <outlet property="avg" destination="Pvx-he-R54" id="2f2-dK-tY6"/>
                         <outlet property="chart" destination="XQl-wy-B3p" id="ga7-nC-sed"/>
@@ -421,7 +423,14 @@
         </scene>
     </scenes>
     <resources>
+        <image name="bluetooth" width="36" height="36"/>
         <image name="clock" catalog="system" width="128" height="121"/>
-        <image name="thermometer" catalog="system" width="87" height="128"/>
+        <image name="radiowaves.right" catalog="system" width="84" height="128"/>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
     </resources>
 </document>

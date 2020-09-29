@@ -1,5 +1,5 @@
 //
-//  temperatureManager.swift
+//  dataManager.swift
 //  New
 //
 //  Created by Eric on 2020/7/5.
@@ -8,7 +8,7 @@
 
 import Foundation
 import Charts
-class TemperatureManager
+class DataManager
 {
     var entries = [BarChartDataEntry]()
     enum DataType {
@@ -24,9 +24,9 @@ class TemperatureManager
             var y = 0.0
             switch type {
             case .Celsius:
-                y = Double(sensorData.tempInC)
+                y = Double(sensorData.value)
             case .Fahrenheit:
-                y = Double(sensorData.tempInF)
+                y = Double(sensorData.value) * 1.8 + 32
             }
             
             entries.append(BarChartDataEntry(x: x,y: y))

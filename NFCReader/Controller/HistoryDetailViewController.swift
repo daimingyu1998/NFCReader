@@ -13,7 +13,7 @@ class HistoryDetailViewController: UIViewController, ChartViewDelegate {
     @IBOutlet weak var chart: LineChartView!
     @IBOutlet weak var segment: UISegmentedControl!
     var sensorRecord: SensorRecord?
-    var temperatureManager = TemperatureManager()
+    var temperatureManager = DataManager()
     override func viewDidLoad() {
         super.viewDidLoad()
         setChart()

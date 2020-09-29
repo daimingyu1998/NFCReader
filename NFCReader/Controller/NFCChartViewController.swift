@@ -12,13 +12,13 @@ import NKButton
 import FrameLayoutKit
 import NVActivityIndicatorView
 import RealmSwift
-class ChartViewController: UIViewController,ChartViewDelegate {
+class NFCChartViewController: UIViewController,ChartViewDelegate {
     @IBOutlet weak var avg: UILabel!
     @IBOutlet weak var chart: LineChartView!
     @IBOutlet weak var segment: UISegmentedControl!
     @IBOutlet weak var picker: UIPickerView!
-    var NFCReader1 = NFCReader()
-    var temperatureManager = TemperatureManager()
+    var NFCReaderMain = NFCReader()
+    var dataManager = DataManager()
     var frameLayout: StackFrameLayout!
     let saveButton = NKButton.DefaultButton(title: "Save", color: UIColor(red:0.25, green:0.39, blue:0.80, alpha:1.00))
     let startButton = NKButton.DefaultButton(title: "Start", color: UIColor(red:0.42, green:0.67, blue:0.91, alpha:1.00))
@@ -48,7 +48,7 @@ class ChartViewController: UIViewController,ChartViewDelegate {
     }
     
     @IBAction func didUpdateSegment(_ sender: UISegmentedControl) {
-        guard self.NFCReader1.dataReady == true else{
+        guard self.NFCReaderMain.dataReady == true else{
             return
         }
         updateData()
@@ -62,12 +62,12 @@ class ChartViewController: UIViewController,ChartViewDelegate {
             self.present(alert, animated: true,completion:nil)
             return
         }
-        NFCReader1.testTime = testTime
-        NFCReader1.sensorRecord = nil
-        NFCReader1.startSession()
+        NFCReaderMain.testTime = testTime
+        NFCReaderMain.sensorRecord = nil
+        NFCReaderMain.startSession()
         
         Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true) { timer in
-            if self.NFCReader1.dataReady == true
+            if self.NFCReaderMain.dataReady == true
             {
                 self.updateData()
                 timer.invalidate()
@@ -76,7 +76,7 @@ class ChartViewController: UIViewController,ChartViewDelegate {
         
     }
     @objc func saveButtonPressed(_ sender: UIButton) {
-        guard NFCReader1.dataReady == true else{
+        guard NFCReaderMain.dataReady == true else{
             let alert = UIAlertController(title: "Save Failed", message: "There is no valid data currently", preferredStyle: .alert)
             let okAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
             alert.addAction(okAction)
@@ -86,7 +86,7 @@ class ChartViewController: UIViewController,ChartViewDelegate {
         let realm = try! Realm()
         do {
             try realm.write{
-                realm.add(NFCReader1.sensorRecord!)
+                realm.add(NFCReaderMain.sensorRecord!)
             }
             NotificationCenter.default.post(name:  Notification.Name("updateTV"), object: nil)
            
@@ -113,16 +113,16 @@ class ChartViewController: UIViewController,ChartViewDelegate {
     func updateData(){
         switch self.segment.selectedSegmentIndex {
         case 0:
-            self.chart.data = self.temperatureManager.creatData(from: self.NFCReader1.sensorRecord!, in: .Celsius)
-            let average:Double = self.NFCReader1.sensorRecord?.getAverageTemp(in: .Celsius) ?? 0.0
+            self.chart.data = self.dataManager.creatData(from: self.NFCReaderMain.sensorRecord!, in: .Celsius)
+            let average:Double = self.NFCReaderMain.sensorRecord?.getAverageTemp(in: .Celsius) ?? 0.0
             DispatchQueue.main.async {
                 self.avg.text = String(format: "Average Temp: %.3f °C", average)
                 self.avg.textColor =  #colorLiteral(red: 0.2588235438, green: 0.7568627596, blue: 0.9686274529, alpha: 1)
                 self.avg.isHidden = false
             }
         case 1:
-            self.chart.data = self.temperatureManager.creatData(from: self.NFCReader1.sensorRecord!, in: .Fahrenheit)
-            let average:Double = self.NFCReader1.sensorRecord?.getAverageTemp(in: .Fahrenheit) ?? 0.0
+            self.chart.data = self.dataManager.creatData(from: self.NFCReaderMain.sensorRecord!, in: .Fahrenheit)
+            let average:Double = self.NFCReaderMain.sensorRecord?.getAverageTemp(in: .Fahrenheit) ?? 0.0
             DispatchQueue.main.async {
                 self.avg.text = String(format: "Average Temp: %.3f °F", average)
                 self.avg.textColor =  #colorLiteral(red: 0.2588235438, green: 0.7568627596, blue: 0.9686274529, alpha: 1)
@@ -196,7 +196,7 @@ class ChartViewController: UIViewController,ChartViewDelegate {
         view.addSubview(frameLayout)
     }
 }
-extension ChartViewController: UIPickerViewDelegate,UIPickerViewDataSource
+extension NFCChartViewController: UIPickerViewDelegate,UIPickerViewDataSource
 {
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 2

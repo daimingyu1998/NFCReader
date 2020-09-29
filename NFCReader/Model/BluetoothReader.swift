@@ -1,20 +1,52 @@
 //
-//  BluetoothDelegateViewController.swift
+//  BluetoothReader.swift
 //  NFCReader
 //
 //  Created by Eric on 2020/9/24.
 //  Copyright © 2020 Eric. All rights reserved.
 //
 
-import UIKit
+import Foundation
 import CoreBluetooth
-class BluetoothDelegateViewController: UIViewController, CBCentralManagerDelegate, CBPeripheralDelegate {
+class BluetoothReader: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate{
     var centralManager: CBCentralManager!
     var connectPeripheral: CBPeripheral!
     var charDictionary = [String: CBCharacteristic]()
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        centralManager = CBCentralManager(delegate: self, queue: .global())
+    var testTime = 5
+    var sensorRecord: SensorRecord? = nil
+    var dataReady = false
+    var singleDataReady = false
+    var testStart = false
+    var testFinished = false
+    var channel = 0
+    func startSession() {
+        testStart = true
+        dataReady = false
+        singleDataReady = false
+        sensorRecord = SensorRecord()
+        guard connectPeripheral != nil else{
+            return
+        }
+        let uuid = "6E400003-B5A3-F393-E0A9-E50E24DCCA9E"
+        guard charDictionary[uuid] != nil else
+        {
+            return
+        }
+        self.connectPeripheral.setNotifyValue(true, for: charDictionary[uuid]!)
+        var data = Data()
+        Timer.scheduledTimer(withTimeInterval: 1, repeats: true){ timer in
+            data = Data(hexString: "00")!
+            self.sendData(data, uuidString: "6E400002-B5A3-F393-E0A9-E50E24DCCA9E", writeType: .withoutResponse)
+            self.testTime -= 1
+            if self.testTime==0{
+                timer.invalidate()
+            }
+//            data = Data(hexString: "01")!
+//            self.sendData(data, uuidString: "6E400002-B5A3-F393-E0A9-E50E24DCCA9E", writeType: .withoutResponse)
+//            data = Data(hexString: "02")!
+//            self.sendData(data, uuidString: "6E400002-B5A3-F393-E0A9-E50E24DCCA9E", writeType: .withoutResponse)
+        }
+        
     }
     func isPaired() -> Bool{
         let user = UserDefaults.standard
@@ -87,5 +119,31 @@ class BluetoothDelegateViewController: UIViewController, CBCentralManagerDelegat
             
         }
     }
+    func sendData(_ data: Data, uuidString:String, writeType: CBCharacteristicWriteType){
+        guard let charateristic = charDictionary[uuidString] else{
+            print("error")
+            return
+        }
+        connectPeripheral.writeValue(data, for: charateristic, type: writeType)
+        
+    }
+    func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
+        guard error == nil else {
+            print("ERROR:\(error!)")
+            return
+        }
+        if characteristic.uuid.uuidString == "6E400003-B5A3-F393-E0A9-E50E24DCCA9E"
+        {
+            let data = characteristic.value!
+            let string = data.hexEncodedString()
+            switch channel {
+            case 0:
+                sensorRecord?.add(SensorData(value:Double(string) ?? 0))
+            default:
+                print(1)
+            }
+        }
+    }
+    
     
 }

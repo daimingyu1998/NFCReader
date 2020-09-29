@@ -12,13 +12,13 @@ import Charts
 import FrameLayoutKit
 import NKButton
 import RealmSwift
-class BluetoothChartViewController: BluetoothDelegateViewController,ChartViewDelegate{
+class BluetoothChartViewController: UIViewController,ChartViewDelegate{
+    var BluetoothReaderMain = BluetoothReader()
     @IBOutlet weak var avg: UILabel!
     @IBOutlet weak var chart: LineChartView!
     @IBOutlet weak var segment: UISegmentedControl!
     @IBOutlet weak var picker: UIPickerView!
-    var NFCReader1 = NFCReader()
-    var temperatureManager = TemperatureManager()
+    var dataManager = DataManager()
     var frameLayout: StackFrameLayout!
     let saveButton = NKButton.DefaultButton(title: "Save", color: UIColor(red:0.25, green:0.39, blue:0.80, alpha:1.00))
     let startButton = NKButton.DefaultButton(title: "Start", color: UIColor(red:0.42, green:0.67, blue:0.91, alpha:1.00))
@@ -32,9 +32,7 @@ class BluetoothChartViewController: BluetoothDelegateViewController,ChartViewDel
     var pickerSecondData = { () -> [Int] in
         var list = [Int]()
         for i in 0..<60{
-            if i % 15 == 0{
-                list.append(i)
-            }
+            list.append(i)
         }
         return list
     }()
@@ -45,10 +43,11 @@ class BluetoothChartViewController: BluetoothDelegateViewController,ChartViewDel
         avg.isHidden = true
         picker.delegate = self
         picker.dataSource = self
+        BluetoothReaderMain.centralManager = CBCentralManager(delegate: BluetoothReaderMain, queue: .global())
     }
     
     @IBAction func didUpdateSegment(_ sender: UISegmentedControl) {
-        guard self.NFCReader1.dataReady == true else{
+        guard self.BluetoothReaderMain.dataReady == true else{
             return
         }
         updateData()
@@ -62,21 +61,19 @@ class BluetoothChartViewController: BluetoothDelegateViewController,ChartViewDel
             self.present(alert, animated: true,completion:nil)
             return
         }
-        NFCReader1.testTime = testTime
-        NFCReader1.sensorRecord = nil
-        NFCReader1.startSession()
+        BluetoothReaderMain.testTime = testTime
+        BluetoothReaderMain.sensorRecord = nil
+        BluetoothReaderMain.startSession()
         
         Timer.scheduledTimer(withTimeInterval: 0.5, repeats: true) { timer in
-            if self.NFCReader1.dataReady == true
-            {
+            if(self.BluetoothReaderMain.testStart == true){
                 self.updateData()
-                timer.invalidate()
             }
         }
         
     }
     @objc func saveButtonPressed(_ sender: UIButton) {
-        guard NFCReader1.dataReady == true else{
+        guard BluetoothReaderMain.dataReady == true else{
             let alert = UIAlertController(title: "Save Failed", message: "There is no valid data currently", preferredStyle: .alert)
             let okAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
             alert.addAction(okAction)
@@ -86,7 +83,7 @@ class BluetoothChartViewController: BluetoothDelegateViewController,ChartViewDel
         let realm = try! Realm()
         do {
             try realm.write{
-                realm.add(NFCReader1.sensorRecord!)
+                realm.add(BluetoothReaderMain.sensorRecord!)
             }
             NotificationCenter.default.post(name:  Notification.Name("updateTV"), object: nil)
             
@@ -113,16 +110,16 @@ class BluetoothChartViewController: BluetoothDelegateViewController,ChartViewDel
     func updateData(){
         switch self.segment.selectedSegmentIndex {
         case 0:
-            self.chart.data = self.temperatureManager.creatData(from: self.NFCReader1.sensorRecord!, in: .Celsius)
-            let average:Double = self.NFCReader1.sensorRecord?.getAverageTemp(in: .Celsius) ?? 0.0
+            self.chart.data = self.dataManager.creatData(from: self.BluetoothReaderMain.sensorRecord!, in: .Celsius)
+            let average:Double = self.BluetoothReaderMain.sensorRecord?.getAverageTemp(in: .Celsius) ?? 0.0
             DispatchQueue.main.async {
                 self.avg.text = String(format: "Average Temp: %.3f °C", average)
                 self.avg.textColor =  #colorLiteral(red: 0.2588235438, green: 0.7568627596, blue: 0.9686274529, alpha: 1)
                 self.avg.isHidden = false
             }
         case 1:
-            self.chart.data = self.temperatureManager.creatData(from: self.NFCReader1.sensorRecord!, in: .Fahrenheit)
-            let average:Double = self.NFCReader1.sensorRecord?.getAverageTemp(in: .Fahrenheit) ?? 0.0
+            self.chart.data = self.dataManager.creatData(from: self.BluetoothReaderMain.sensorRecord!, in: .Fahrenheit)
+            let average:Double = self.BluetoothReaderMain.sensorRecord?.getAverageTemp(in: .Fahrenheit) ?? 0.0
             DispatchQueue.main.async {
                 self.avg.text = String(format: "Average Temp: %.3f °F", average)
                 self.avg.textColor =  #colorLiteral(red: 0.2588235438, green: 0.7568627596, blue: 0.9686274529, alpha: 1)
@@ -212,7 +209,6 @@ extension BluetoothChartViewController: UIPickerViewDelegate,UIPickerViewDataSou
     }
     
     func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
-        //将图片设为PickerView选型
         var pickerLabel = view as? UILabel
         if pickerLabel == nil{
             pickerLabel = UILabel()
