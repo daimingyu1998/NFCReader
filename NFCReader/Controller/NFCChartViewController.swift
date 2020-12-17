@@ -15,8 +15,9 @@ import RealmSwift
 class NFCChartViewController: UIViewController,ChartViewDelegate {
     @IBOutlet weak var avg: UILabel!
     @IBOutlet weak var chart: LineChartView!
-    @IBOutlet weak var segment: UISegmentedControl!
+    @IBOutlet weak var segment1: UISegmentedControl!
     @IBOutlet weak var picker: UIPickerView!
+    @IBOutlet weak var segment2: UISegmentedControl!
     var NFCReaderMain = NFCReader()
     var dataManager = DataManager()
     var frameLayout: StackFrameLayout!
@@ -49,6 +50,12 @@ class NFCChartViewController: UIViewController,ChartViewDelegate {
     
     @IBAction func didUpdateSegment(_ sender: UISegmentedControl) {
         guard self.NFCReaderMain.dataReady == true else{
+            switch segment2.selectedSegmentIndex {
+            case 1:
+                segment1.isHidden = true
+            default:
+                segment1.isHidden = false
+            }
             return
         }
         updateData()
@@ -88,6 +95,10 @@ class NFCChartViewController: UIViewController,ChartViewDelegate {
             try realm.write{
                 realm.add(NFCReaderMain.sensorRecord!)
             }
+            let alert = UIAlertController(title: "Save Successful", message: "Please view the data in the History", preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+            alert.addAction(okAction)
+            self.present(alert, animated: true,completion:nil)
             NotificationCenter.default.post(name:  Notification.Name("updateTV"), object: nil)
            
         }
@@ -111,26 +122,42 @@ class NFCChartViewController: UIViewController,ChartViewDelegate {
         }
     }
     func updateData(){
-        switch self.segment.selectedSegmentIndex {
+        switch self.segment2.selectedSegmentIndex {
         case 0:
-            self.chart.data = self.dataManager.creatData(from: self.NFCReaderMain.sensorRecord!, in: .Celsius)
-            let average:Double = self.NFCReaderMain.sensorRecord?.getAverageTemp(in: .Celsius) ?? 0.0
-            DispatchQueue.main.async {
-                self.avg.text = String(format: "Average Temp: %.3f °C", average)
-                self.avg.textColor =  #colorLiteral(red: 0.2588235438, green: 0.7568627596, blue: 0.9686274529, alpha: 1)
-                self.avg.isHidden = false
+            segment1.isHidden = false
+            switch self.segment1.selectedSegmentIndex {
+            case 0:
+                self.chart.data = self.dataManager.creatData(from: self.NFCReaderMain.sensorRecord!, in: .Celsius)
+                let average:Double = self.NFCReaderMain.sensorRecord?.getAverageTemp(in: .Celsius) ?? 0.0
+                DispatchQueue.main.async {
+                    self.avg.text = String(format: "Average Temp: %.3f °C", average)
+                    self.avg.textColor =  #colorLiteral(red: 0.2588235438, green: 0.7568627596, blue: 0.9686274529, alpha: 1)
+                    self.avg.isHidden = false
+                }
+            case 1:
+                self.chart.data = self.dataManager.creatData(from: self.NFCReaderMain.sensorRecord!, in: .Fahrenheit)
+                let average:Double = self.NFCReaderMain.sensorRecord?.getAverageTemp(in: .Fahrenheit) ?? 0.0
+                DispatchQueue.main.async {
+                    self.avg.text = String(format: "Average Temp: %.3f °F", average)
+                    self.avg.textColor =  #colorLiteral(red: 0.2588235438, green: 0.7568627596, blue: 0.9686274529, alpha: 1)
+                    self.avg.isHidden = false
+                }
+            default:
+                return
             }
         case 1:
-            self.chart.data = self.dataManager.creatData(from: self.NFCReaderMain.sensorRecord!, in: .Fahrenheit)
-            let average:Double = self.NFCReaderMain.sensorRecord?.getAverageTemp(in: .Fahrenheit) ?? 0.0
+            segment1.isHidden = true
+            self.chart.data = self.dataManager.creatData(from: self.NFCReaderMain.sensorRecord!, in: .Light)
+            let average:Double = self.NFCReaderMain.sensorRecord?.getAverageTemp(in: .Light) ?? 0.0
             DispatchQueue.main.async {
-                self.avg.text = String(format: "Average Temp: %.3f °F", average)
+                self.avg.text = String(format: "Average Lumi: %.3f lm", average)
                 self.avg.textColor =  #colorLiteral(red: 0.2588235438, green: 0.7568627596, blue: 0.9686274529, alpha: 1)
                 self.avg.isHidden = false
             }
         default:
             return
         }
+
     }
     func setChart(){
         chart.delegate = self

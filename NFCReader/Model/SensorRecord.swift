@@ -13,6 +13,7 @@ class SensorRecord: Object{
     enum dataType {
         case Celsius
         case Fahrenheit
+        case Light
     }
     @objc dynamic var name = ""
     convenience init(name: String){
@@ -43,6 +44,7 @@ class SensorRecord: Object{
         }
     }
     func getAverageTemp(in type: dataType) -> Double?{
+        var count = 0
         if data.isEmpty == true{
             return nil
         }
@@ -51,12 +53,24 @@ class SensorRecord: Object{
             for eachdata in data{
                 switch type {
                 case .Celsius:
-                    sum += eachdata.value
+                    if eachdata.datatype == 0{
+                        sum += eachdata.value
+                        count += 1
+                    }
                 case .Fahrenheit:
-                    sum += eachdata.value * 1.8 + 32
+                    if eachdata.datatype == 0{
+                        sum += eachdata.value * 1.8 + 32
+                        count += 1
+                    }
+                case .Light:
+                    if eachdata.datatype == 1{
+                        sum += eachdata.value
+                        count += 1
+                    }
+                    
                 }
             }
-            let avg = sum/Double(data.count)
+            let avg = sum/Double(count)
             print(avg)
             return avg
         }

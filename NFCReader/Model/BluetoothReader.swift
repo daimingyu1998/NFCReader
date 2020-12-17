@@ -39,6 +39,9 @@ class BluetoothReader: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate{
             self.sendData(data, uuidString: "6E400002-B5A3-F393-E0A9-E50E24DCCA9E", writeType: .withoutResponse)
             self.testTime -= 1
             if self.testTime==0{
+                self.testFinished = true
+                self.testStart = false
+                self.dataReady = true
                 timer.invalidate()
             }
 //            data = Data(hexString: "01")!
@@ -138,7 +141,7 @@ class BluetoothReader: NSObject, CBCentralManagerDelegate, CBPeripheralDelegate{
             let string = data.hexEncodedString()
             switch channel {
             case 0:
-                sensorRecord?.add(SensorData(value:Double(string) ?? 0))
+                sensorRecord?.add(SensorData(value:Double(string) ?? 0, type: 1))
             default:
                 print(1)
             }

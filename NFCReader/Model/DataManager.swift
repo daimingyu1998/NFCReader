@@ -14,6 +14,7 @@ class DataManager
     enum DataType {
         case Celsius
         case Fahrenheit
+        case Light
     }
     func creatData(from sensorRecord: SensorRecord, in type: DataType) ->ChartData?
     {
@@ -24,15 +25,40 @@ class DataManager
             var y = 0.0
             switch type {
             case .Celsius:
-                y = Double(sensorData.value)
+                if sensorData.datatype == 0 {
+                    y = Double(sensorData.value)
+                }
+                else{
+                    continue
+                }
             case .Fahrenheit:
-                y = Double(sensorData.value) * 1.8 + 32
+                if sensorData.datatype == 0 {
+                    y = Double(sensorData.value) * 1.8 + 32
+                }
+                else{
+                    continue
+                }
+            case .Light:
+                if sensorData.datatype == 1 {
+                    y = Double(sensorData.value)
+                }
+                else{
+                    continue
+                }
             }
             
             entries.append(BarChartDataEntry(x: x,y: y))
         }
         print(entries)
-        let set = LineChartDataSet(entries: entries, label: "temperature")
+        var set = LineChartDataSet(entries: entries, label: "temperature")
+        if (type == .Celsius || type == .Fahrenheit)
+        {
+            set = LineChartDataSet(entries: entries, label: "temperature")
+        }
+        else if type == .Light
+        {
+            set = LineChartDataSet(entries: entries, label: "brightness")
+        }
         set.drawCirclesEnabled = true
         set.mode = .linear
         set.lineWidth = 1.5

@@ -11,9 +11,10 @@ import Charts
 class HistoryDetailViewController: UIViewController, ChartViewDelegate {
     @IBOutlet weak var avg: UILabel!
     @IBOutlet weak var chart: LineChartView!
-    @IBOutlet weak var segment: UISegmentedControl!
+    @IBOutlet weak var segment1: UISegmentedControl!
+    @IBOutlet weak var segment2: UISegmentedControl!
     var sensorRecord: SensorRecord?
-    var temperatureManager = DataManager()
+    var dataManager = DataManager()
     override func viewDidLoad() {
         super.viewDidLoad()
         setChart()
@@ -44,20 +45,35 @@ class HistoryDetailViewController: UIViewController, ChartViewDelegate {
         chart.marker = marker
     }
     func updateData(){
-        switch self.segment.selectedSegmentIndex {
+        switch self.segment2.selectedSegmentIndex {
         case 0:
-            chart.data = self.temperatureManager.creatData(from: sensorRecord!, in: .Celsius)
-            let average = self.sensorRecord?.getAverageTemp(in: .Celsius) ?? 0.0
-            DispatchQueue.main.async {
-                self.avg.text = String(format: "Average Temp: %.3f °C", average)
-                self.avg.textColor =  #colorLiteral(red: 0.2588235438, green: 0.7568627596, blue: 0.9686274529, alpha: 1)
-                self.avg.isHidden = false
+            segment1.isHidden = false
+            switch self.segment1.selectedSegmentIndex {
+            case 0:
+                self.chart.data = self.dataManager.creatData(from: self.sensorRecord!, in: .Celsius)
+                let average:Double = self.sensorRecord?.getAverageTemp(in: .Celsius) ?? 0.0
+                DispatchQueue.main.async {
+                    self.avg.text = String(format: "Average Temp: %.3f °C", average)
+                    self.avg.textColor =  #colorLiteral(red: 0.2588235438, green: 0.7568627596, blue: 0.9686274529, alpha: 1)
+                    self.avg.isHidden = false
+                }
+            case 1:
+                self.chart.data = self.dataManager.creatData(from: self.sensorRecord!, in: .Fahrenheit)
+                let average:Double = self.sensorRecord?.getAverageTemp(in: .Fahrenheit) ?? 0.0
+                DispatchQueue.main.async {
+                    self.avg.text = String(format: "Average Temp: %.3f °F", average)
+                    self.avg.textColor =  #colorLiteral(red: 0.2588235438, green: 0.7568627596, blue: 0.9686274529, alpha: 1)
+                    self.avg.isHidden = false
+                }
+            default:
+                return
             }
         case 1:
-            chart.data = self.temperatureManager.creatData(from: sensorRecord!, in: .Fahrenheit)
-            let average = self.sensorRecord?.getAverageTemp(in: .Fahrenheit) ?? 0.0
+            segment1.isHidden = true
+            self.chart.data = self.dataManager.creatData(from: self.sensorRecord!, in: .Light)
+            let average:Double = self.sensorRecord?.getAverageTemp(in: .Light) ?? 0.0
             DispatchQueue.main.async {
-                self.avg.text = String(format: "Average Temp: %.3f °F", average)
+                self.avg.text = String(format: "Average Lumi: %.3f lm", average)
                 self.avg.textColor =  #colorLiteral(red: 0.2588235438, green: 0.7568627596, blue: 0.9686274529, alpha: 1)
                 self.avg.isHidden = false
             }
